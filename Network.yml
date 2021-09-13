@@ -1,0 +1,79 @@
+AWSTemplateFormatVersion: 2010-09-09
+Resources: 
+#######
+# VPC
+#######
+  myVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: true
+      Tags:
+        - Key: Name
+          Value: myVPC
+
+######
+# InternetGW
+######
+  internetGW:
+      Type: AWS::EC2::InternetGateway
+      Properties:
+        Tags:
+          - Key: Name
+            Value: internetGW
+
+#####
+# AttachInternetGateway
+#####      
+  AttachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref myVPC
+      InternetGatewayId: !Ref internetGW
+
+#####
+# PublicSubnet
+#####
+  publicsubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: "ap-northeast-1a"
+      VpcId: !Ref myVPC
+      CidrBlock: 10.0.0.0/24
+      Tags:
+        - Key: Name
+          Value: PublicSubnet00
+
+#####
+# PrivateSubnet
+#####
+  privatesubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: "ap-northeast-1a"
+      VpcId: !Ref myVPC
+      CidrBlock: 10.0.1.0/24
+      Tags:
+        - Key: Name
+          Value: PrivateSubnet01
+
+#####
+# OutputSection
+#####
+Outputs:
+    VPC:
+      Value: !Ref myVPC
+      Export:
+        Name: VPCId
+    Subnet1:
+      Value: !Ref publicsubnet
+      Export: 
+        Name: PublicSubnet00
+    Subnet2:
+      Value: !Ref privatesubnet
+      Export: 
+        Name: PrivateSubnet01
+    internetGW:
+      Value: !Ref internetGW
+      Export:
+        Name: internetGW

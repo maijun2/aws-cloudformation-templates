@@ -1,4 +1,24 @@
 AWSTemplateFormatVersion: 2010-09-09
+
+Mappings: 
+  RegionMap: 
+    us-east-1:
+      a: "us-east-1a"
+      c: "us-east-1c"
+      d: "us-east-1d"
+
+    us-west-2:
+      a: "us-west-2a"
+      C: "us-west-2c"
+      d: "us-west-2d"
+
+    ap-northeast-1:
+      a: "ap-northeast-1a"
+      c: "ap-northeast-1c"
+      d: "ap-northeast-1d"
+
+
+
 Resources: 
 #######
 # VPC
@@ -34,10 +54,10 @@ Resources:
 #####
 # PublicSubnet
 #####
-  publicsubnet:
+  publicsubnet00:
     Type: AWS::EC2::Subnet
     Properties:
-      AvailabilityZone: "ap-northeast-1a"
+      AvailabilityZone: !FindInMap [RegionMap, !Ref "AWS::Region", a]
       VpcId: !Ref myVPC
       CidrBlock: 10.0.0.0/24
       Tags:
@@ -47,10 +67,10 @@ Resources:
 #####
 # PrivateSubnet
 #####
-  privatesubnet:
+  privatesubnet01:
     Type: AWS::EC2::Subnet
     Properties:
-      AvailabilityZone: "ap-northeast-1a"
+      AvailabilityZone: !FindInMap [RegionMap, !Ref "AWS::Region", c]
       VpcId: !Ref myVPC
       CidrBlock: 10.0.1.0/24
       Tags:
@@ -65,12 +85,12 @@ Outputs:
       Value: !Ref myVPC
       Export:
         Name: VPCId
-    Subnet1:
-      Value: !Ref publicsubnet
+    PublicSubnet00:
+      Value: !Ref publicsubnet00
       Export: 
         Name: PublicSubnet00
-    Subnet2:
-      Value: !Ref privatesubnet
+    PrivateSubnet01:
+      Value: !Ref privatesubnet01
       Export: 
         Name: PrivateSubnet01
     internetGW:

@@ -34,3 +34,35 @@ Resources:
 #######
 # PrivateRouteTable
 #######
+  RouteTablePrivate:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !ImportValue VPCId
+      Tags:
+        - Key: Name
+          Value: RouteTablePrivate
+
+  PrivateSubnetRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref RouteTablePrivate
+      SubnetId: !ImportValue  PrivateSubnet01
+
+  PrivateSubnetRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref RouteTablePrivate
+      SubnetId: !ImportValue  PrivateSubnet02
+
+  routeNATGW:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref RouteTablePrivate
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId: !ImportValue NatGWId
+      
+Outputs:
+    RouteTableName:
+      Value: !Ref RouteTablePrivate
+      Export:
+        Name: RouteTablePrivate

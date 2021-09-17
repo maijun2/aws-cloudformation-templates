@@ -52,7 +52,7 @@ Resources:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
       RouteTableId: !Ref RouteTablePrivate
-      SubnetId: !ImportValue  PrivateSubnet02
+      SubnetId: !ImportValue  PrivateSubnet03
 
   routeNATGW:
     Type: AWS::EC2::Route

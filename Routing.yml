@@ -12,13 +12,13 @@ Resources:
         - Key: Name
           Value: RouteTablePublic
 
-  PublicSubnetRouteTableAssociation:
+  PublicSubnetRouteTableAssociation00:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
       RouteTableId: !Ref RouteTablePublic
       SubnetId: !ImportValue  PublicSubnet00
 
-  PublicSubnetRouteTableAssociation:
+  PublicSubnetRouteTableAssociation02:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
       RouteTableId: !Ref RouteTablePublic
@@ -42,13 +42,13 @@ Resources:
         - Key: Name
           Value: RouteTablePrivate
 
-  PrivateSubnetRouteTableAssociation:
+  PrivateSubnetRouteTableAssociation01:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
       RouteTableId: !Ref RouteTablePrivate
       SubnetId: !ImportValue  PrivateSubnet01
 
-  PrivateSubnetRouteTableAssociation:
+  PrivateSubnetRouteTableAssociation03:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
       RouteTableId: !Ref RouteTablePrivate

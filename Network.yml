@@ -121,7 +121,6 @@ Resources:
     Properties:
       Domain: vpc
 
-
 #######
 # PublicRouteTable
 #######
@@ -181,9 +180,6 @@ Resources:
       RouteTableId: !Ref RouteTablePrivate
       DestinationCidrBlock: 0.0.0.0/0
       NatGatewayId: !Ref NatGW
-      
-
-
 
 #####
 # OutputSection

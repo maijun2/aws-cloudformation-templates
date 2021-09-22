@@ -5,3 +5,5 @@ AWS学習用教材.
  - ネットワーク
  - コンピューティング
  - データベース
+## 参考情報
+[CloudFormationドキュメント](https://docs.aws.amazon.com/ja_jp/cloudformation/index.html)
